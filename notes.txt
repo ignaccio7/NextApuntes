@@ -1,0 +1,27 @@
+para crear un proyecto en next se puede hacer con
+-> npx create-next-app@latest
+
+tambien en el tutorial nos indica 
+https://nextjs.org/learn/dashboard-app/getting-started
+------------------------------ nombre ------- para asegurarse que usamos npm -- <--example> esto para incicializar un proyecto de nextjs y enves de empezar de 0 podemos empezarla desde una plantilla como una base para iniciar
+-> npx create-next-app@latest nextjs-dashboard --use-npm --example "https://github.com/vercel/next-learn/tree/main/dashboard/starter-example"
+
+------ LA ESTRUCTURA
+en las carpetas 
+la carpeta scripts lo ah creado la plantilla
+tiene el archivo seed.js
+lo que hace es que cuando lo ejecutemos nos va inicializar una BD que para no tener que hacer o consumir un JSON nos provee de una plantilla para crear una BD
+luego la carpeta public
+ahi estaran los archivos estaticos
+lo que queremos que se sirvan como ser videos audios imagenes etc
+y finalmente la carpeta app
+es la mas importante
+lo mas basico que tendremos es una page.tsx 
+cada vez que queramos crear una nueva ruta en nuestra app sera crear un archivo .tsx o jsx 
+nos creara un ruta y dependiendo de la anidacion de carpetas creara rutas
+
+tambien tenemos un Layout.tsx lo que hara es envolver las paginas que tengamos ahi dentro
+
+tambien tendriamos la carpeta ui que serian componentes ya creados
+y la carpeta lib lo que tendriamos que tener es archivos para hacer fetching de datos, interfaces de typescript etc 
+
