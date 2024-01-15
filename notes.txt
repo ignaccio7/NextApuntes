@@ -25,3 +25,28 @@ tambien tenemos un Layout.tsx lo que hara es envolver las paginas que tengamos a
 tambien tendriamos la carpeta ui que serian componentes ya creados
 y la carpeta lib lo que tendriamos que tener es archivos para hacer fetching de datos, interfaces de typescript etc 
 
+
+-- para evitar que se vuelva a renderizar toda la pagina cuando navegemos en la aplicacion asi tenga el mismo contenido
+buscamos con ctrl + e el componente nav-links y cambiamos el ancor a por Link
+
+--vamos a trabajar con la base de datos de postgresql que nos trae la capa gratuita de vercel
+lo que haremos es ir a la pestaña de storage en vercel y copiaremos el contenido de la pestaña .env.local a nuestro .env en nuestro proyecto
+y luego instalamos
+npm install @vercel/postgres -E
+
+como dijimos que teniamos un archivo seed que tenia una ejemplo de una base de datos
+en el package.json colocamos un nuevo script para que importe las variables de entorno
+ luego ejecute ese archivo asi añadismo
+-> "seed": "node -r dotenv/config ./scripts/seed.js"
+y luego ejecutamos 
+npm run seed
+asi esto creara las tablas y lo podremos ver en la cuenta 
+
+para no sobrecargar el servidor con consultas usaremos una libreria de react 
+npm install use-debounce -E
+
+para las validaciones
+npm install zod -E
+
+
+

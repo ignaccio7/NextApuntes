@@ -41,20 +41,24 @@ export default function Page() {
             y podemos ver que en network no cargara las 2 imagenes sino solo la que necesite segun el ancho de la pantalla 
             Nota: la optimizacion de imagenes tiene coste osea hay unas cuantas gratuitas pero no es ilimitado
           */}
-          <Image
-            src="/hero-desktop.png" 
-            alt="Screenshot of the dashboard" 
-            width={1000}
-            height={760}
-            className='hidden md:block'
-          />
-          <Image
-            src="/hero-mobile.png" 
-            alt="Screenshot of the dashboard" 
-            width={560}
-            height={620}
-            className='block md:hidden'
-          />
+          <Link
+            href='/dashboard'
+          >
+            <Image
+              src="/hero-desktop.png"
+              alt="Screenshot of the dashboard"
+              width={1000}
+              height={760}
+              className='hidden md:block'
+            />
+            <Image
+              src="/hero-mobile.png"
+              alt="Screenshot of the dashboard"
+              width={560}
+              height={620}
+              className='block md:hidden'
+            />
+          </Link>
         </div>
       </div>
     </main>
