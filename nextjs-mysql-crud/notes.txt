@@ -1,0 +1,6 @@
+para la conexion usaremos mysql-serverless
+https://www.npmjs.com/package/serverless-mysql
+
+esto porque en el caso de nextjs como vercel la nube de vercel lo transforma a funciones serverless
+-> npm i serverless- -E
+nos permite tener el manejo de funciones asincronas que generalmente lo que hace es cerrar la conexion luego de pedir algun tipo de dato

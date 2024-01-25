@@ -1,0 +1,16 @@
+-- DATABASE
+
+CREATE DATABASE nextmysqlcrud;
+
+USE nextmysqlcrud;
+
+CREATE TABLE product(
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(200) NOT NULL,
+  description VARCHAR(200)
+  price DECIMAL(10,2),
+  createAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+
