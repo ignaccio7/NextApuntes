@@ -1,0 +1,26 @@
+### GET
+GET http://localhost:3000/api/tasks/
+
+### GET
+GET http://localhost:3000/api/tasks/2
+
+### DELETE
+DELETE http://localhost:3000/api/tasks/2
+
+### POST
+POST http://localhost:3000/api/tasks/
+Content-Type: application/json
+
+{
+    "title":"tarea 3",
+    "description":"descripcion 3"
+}
+
+### PUT
+PUT http://localhost:3000/api/tasks/4
+Content-Type: application/json
+
+{
+    "title":"tarea 4",
+    "description":"descripcion 4"
+}

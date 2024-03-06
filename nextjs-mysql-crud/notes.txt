@@ -2,5 +2,29 @@ para la conexion usaremos mysql-serverless
 https://www.npmjs.com/package/serverless-mysql
 
 esto porque en el caso de nextjs como vercel la nube de vercel lo transforma a funciones serverless
--> npm i serverless- -E
+-> npm i serverless-mysql -E
 nos permite tener el manejo de funciones asincronas que generalmente lo que hace es cerrar la conexion luego de pedir algun tipo de dato
+
+Para hacer la redireccion de la pagina / 
+a  /products ya que esa sera nuestra pagina de inico
+en el archivo next.config.mjs
+    const nextConfig = {
+    async redirects(){
+        return[
+        {
+            source: '/',
+            destination: '/products',
+            permanent: true
+        }
+        ]
+    }
+    };
+
+
+Para el almacenamiento de las imagenes usaremos cloudinary
+instalamos el paquete
+
+    npm install cloudinary
+
+y seguimos las instrucciones de 
+https://console.cloudinary.com/pm/c-5e1268199f09ec3d5df2edd9a2b05d/getting-started

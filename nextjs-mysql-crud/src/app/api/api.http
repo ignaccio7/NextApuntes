@@ -1,0 +1,29 @@
+### GET pagina de inicio para saludar
+GET http://localhost:3000/api/hello
+
+### GET al endpoint de productos
+GET http://localhost:3000/api/products
+
+### GET al endpoint de productos para obtener uno
+GET http://localhost:3000/api/products/6
+
+### POST al endpoint de productos
+POST http://localhost:3000/api/products
+Content-Type: application/json
+
+{
+    "name": "Teclado Redragon cumara",
+    "description": "teclado mecanico",
+    "price": 500.99
+}
+
+### DELETE al endpoint de productos para eliminar uno
+DELETE http://localhost:3000/api/products/7
+
+### UPDATE - put al endpoint de productos para actualizar uno
+PUT http://localhost:3000/api/products/6
+Content-Type: application/json
+
+{
+    "name": "Teclado Redragon cumarasasa"
+}

@@ -1,0 +1,12 @@
+.navbar {  
+  display: flex;
+  gap: 1rem;
+  list-style: none;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.navbar a {
+  color: wheat;
+  text-decoration: none;
+}
