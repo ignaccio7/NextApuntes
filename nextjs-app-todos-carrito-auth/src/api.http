@@ -1,0 +1,36 @@
+### GET hello 
+GET http://localhost:3000/api/hello
+
+### POST hello 
+POST http://localhost:3000/api/hello
+
+### GET al seed de la base de datos
+GET http://localhost:3000/api/seed
+
+
+### GET a la pagina de todos
+GET http://localhost:3000/api/todos
+
+### GET a la pagina de todos con paginacion
+GET http://localhost:3000/api/todos?take=2&skip=2
+
+### GET a la pagina de todos por ID
+GET http://localhost:3000/api/todos/6244944c-ab30-4dc6-aecc-fbd6edc346e5
+
+### POST a la pagina de todos
+POST http://localhost:3000/api/todos
+Content-Type: application/json
+
+{
+    "description": "Conquistar el mundo Cerebro"
+}
+
+### PUT a la pagina de todos por ID
+PUT http://localhost:3000/api/todos/ee58d834-8d7f-4f00-b6ad-a21e837b667e
+Content-Type: application/json
+
+{
+    "description2": "Conquistar el mundo PINKY222",
+    "complete":"truasdasde",
+    "otrapropiedad": "Quiero tus datos"
+}

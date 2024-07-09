@@ -1,4 +1,4 @@
-import NavBar from "../components/NavBar";
+import NavBar from "./components/NavBar.jsx";
 import { Roboto } from 'next/font/google'
 import './global.css'
 
@@ -20,7 +20,12 @@ export default function RootLayout({ children }) {
     { href: "", name: "Home" },
     { href: "about", name: "About" },
     { href: "store", name: "Store" },
-    { href: "posts", name: "Posts" }
+    { href: "posts", name: "Posts" },
+    // nuevas rutas
+    { href: "login", name: "Login" },
+    { href: "registro", name: "Registro" },
+    { href: "rutaparalela", name: "Dashboard-rutaParalela" }
+    
   ];
 
   return (

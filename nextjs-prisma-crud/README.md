@@ -11,7 +11,7 @@ Finalmente, configure Prisma ORM con el init comando de la CLI de Prisma:
 Luego veremos una carpeta creada en el proyecto "prisma" y para entender mejor nos intalaremos la extension de vscode de prisma
 y ya luego en esa carpeta en el esquema es donde crearemos las tablas por asi decirse de nuestras db
 
-Y para ejecutar Ejecute el siguiente comando en su terminal para crear la base de datos SQLite
+Y para ejecutar el comando en la terminal para crear la base de datos SQLite
 
     npx prisma migrate dev --name init
 
@@ -25,7 +25,7 @@ Debido a que el archivo de base de datos SQLite no existía antes, el comando ta
 
 Felicitaciones, ahora tiene su base de datos y tablas listas. ¡Vamos y aprendamos cómo puede enviar algunas consultas para leer y escribir datos!
 
-En la carpeta prisma nos creara un archivo dev.db el cual esa sera nuestra base dedatos en sqlite y para verla podriamos instalarnos la extension 
+En la carpeta prisma nos creara un archivo dev.db el cual esa sera nuestra base de datos en sqlite y para verla podriamos instalarnos la extension 
 sqlite viewer
 y dar click derecho al dev.db y "open whit" con sqliteviewer
 
