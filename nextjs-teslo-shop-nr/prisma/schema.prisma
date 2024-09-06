@@ -10,42 +10,138 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Category{
-  id String @id @default(uuid())
-  name String @unique
+model Category {
+  id      String    @id @default(uuid())
+  name    String    @unique
   // vinculo para la foranea product
   Product Product[]
 }
 
 model Product {
-  id String @id @default(uuid())
-  title String
+  id          String @id @default(uuid())
+  title       String
   description String
-  inStock Int
-  price Float @default(0)
-  slug String @unique  
+  inStock     Int
+  price       Float  @default(0)
+  slug        String @unique
   // generos
-  gender String
+  gender      String
   // etiquetas
-  tags String @default("[]")
+  tags        String @default("[]")
   // tamaños
-  sizes String @default("[]")
+  sizes       String @default("[]")
 
   // foraneas
   categoryId String
-  category Category @relation(fields: [categoryId], references: [id])
-
-  @@index([gender])
+  category   Category @relation(fields: [categoryId], references: [id])
 
   // vinculo para la foranea Image
   ProductImage ProductImage[]
+
+  // relacion con el producto id en el product item que sera cuando compren
+  OrderItem OrderItem[]
+
+  @@index([gender])
 }
 
 model ProductImage {
-  id Int @id @default(autoincrement())
+  id  Int    @id @default(autoincrement())
   url String
 
   // foraneas
   productId String
-  product Product @relation(fields: [productId], references: [id])
+  product   Product @relation(fields: [productId], references: [id])
+}
+
+model User {
+  id            String    @id @default(uuid())
+  name          String
+  email         String    @unique
+  emailVerified DateTime?
+  password      String
+  role          String    @default("user")
+  image         String?
+
+  // Relaciones <- esto no creo una nueva columna sino que define esa relacion
+  address UserAddress?
+  Order   Order[]
+}
+
+model Country {
+  id           String         @id
+  name         String
+  UserAddress  UserAddress[]
+  OrderAddress OrderAddress[]
+}
+
+model UserAddress {
+  id         String  @id @default(uuid())
+  firstName  String
+  lastName   String
+  address    String
+  address2   String?
+  postalCode String
+  phone      String
+  city       String  @default("")
+  // Relaciones
+  country    Country @relation(fields: [countryId], references: [id])
+  countryId  String
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String @unique
+}
+
+// Orden de compras
+model Order {
+  id           String    @id @default(uuid())
+  subTotal     Float
+  tax          Float
+  total        Float
+  itemsInOrder Int
+  isPaid       Boolean   @default(false)
+  // delivered DateTime
+  paidAt       DateTime?
+
+  createAt  DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relaciones
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+
+  OrderItem OrderItem[]
+
+  OrderAddress OrderAddress?
+}
+
+model OrderItem {
+  id       String @id @default(uuid())
+  quantity Int
+  price    Float
+  size     String
+
+  // Relaciones
+  order   Order  @relation(fields: [orderId], references: [id])
+  orderId String
+
+  product   Product @relation(fields: [productId], references: [id])
+  productId String
+}
+
+model OrderAddress {
+  id         String  @id @default(uuid())
+  firstName  String
+  lastName   String
+  address    String
+  address2   String?
+  postalCode String
+  phone      String
+  city       String  @default("")
+
+  // Relaciones
+  country   Country @relation(fields: [countryId], references: [id])
+  countryId String
+
+  order   Order  @relation(fields: [orderId], references: [id])
+  orderId String @unique
 }

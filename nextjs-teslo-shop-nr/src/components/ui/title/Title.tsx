@@ -14,7 +14,7 @@ export function Title({ title, subtitle, className }:Props) {
       </h1>     
       {
         subtitle && (
-          <h3 className="text-xl mb-5">
+          <h3 className="text-xl mb-5 font-semibold">
             {subtitle}
           </h3>
         )

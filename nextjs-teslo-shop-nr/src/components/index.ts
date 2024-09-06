@@ -26,11 +26,24 @@ export * from "./products/product-grid/ProductGridItem"
 export * from "./ui/footer/Footer"
 
 
-/************************** PRODUCTS - GRID   */
+/************************** PRODUCT - GRID   */
 /** SIZE - SELECTOR  */
 export * from "./product/size-selector/SizeSelector"
 /** QUANTITY - SELECTOR  */
 export * from "./product/quantity-selector/QuantitySelector"
+/** STOCK - LABEL  */
+export * from "./product/stock-label/StockLabel"
 /** SLIDESHOW  */
 export * from "./product/slideshow-images/SlideShow"
 export * from "./product/slideshow-images/MobileSlideShow"
+
+/** PRODUCTS - IMAGE  */
+export * from "./product/product-image/ProductImage"
+
+
+
+/************************** AUTH - PROVIDER   */
+/** Para tener la informacion del usuario de lado del cliente  */
+export * from './provider/AuthProvider'
+
+

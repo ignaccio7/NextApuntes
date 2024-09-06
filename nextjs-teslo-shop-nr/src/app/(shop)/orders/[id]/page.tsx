@@ -1,8 +1,11 @@
+import { getOrderById } from "@/actions/order/get-order-by-id";
 import { QuantitySelector, Title } from "@/components";
 
 import { initialData } from "@/seed/seed";
+import { currencyFormat } from "@/utils/currencyFormatter";
 import clsx from "clsx";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { IoCardOutline } from "react-icons/io5";
 
 const products = initialData.products.slice(0, 3);
@@ -13,8 +16,15 @@ interface Props {
   };
 }
 
-export default function OrdersPage({ params }: Props) {
+export default async function OrdersPage({ params }: Props) {
   const { id } = params;
+  const { ok, order } = await getOrderById(id);
+  console.log("=========ORDER=========");
+  console.log(order);
+
+  if (!ok) {
+    redirect("/");
+  }
 
   return (
     <div className="max-w-[1200px] h-auto m-auto px-5 mb-10">
@@ -27,29 +37,36 @@ export default function OrdersPage({ params }: Props) {
             className={clsx(
               "px-4 py-2 rounded-md text-slate-50 flex gap-4 items-center font-bold",
               {
-                "bg-red-500": false,
-                "bg-green-800": true,
+                "bg-red-500": !order!.isPaid,
+                "bg-green-800": order!.isPaid,
               }
             )}
           >
             <IoCardOutline size={30} />
-            Pagado
+            { order!.isPaid ? 'Pagado' : 'No pagado' }
           </div>
 
           <ul className="flex flex-col gap-4 mt-4">
-            {products.map((product) => {
+            {order!.OrderItem.map((item) => {
               return (
-                <li key={product.slug} className="flex gap-4 items-start">
+                <li
+                  key={`${item.product.slug}-${item.product.sizes}`}
+                  className="flex gap-4 items-start"
+                >
                   <img
-                    src={`/products/${product.images[0]}`}
-                    alt={`Imagen del producto: ${product.title}`}
+                    src={`/products/${item.product.ProductImage[0].url}`}
+                    alt={`Imagen del producto: ${item.product.title}`}
                     className="w-28 h-28 object-cover"
                   />
                   <div className="content">
-                    <h3>{product.title}</h3>
-                    <p>$ {product.price}</p>
-                    <QuantitySelector quantity={3} />
-                    <button>Remover</button>
+                    <h3>{item.product.title}</h3>
+                    <p>
+                      {currencyFormat(item.price)} x {item.quantity}
+                    </p>
+                    <p className="font-bold">
+                      Subtotal:
+                      {currencyFormat(item.price * item.quantity)}
+                    </p>
                   </div>
                 </li>
               );
@@ -59,55 +76,59 @@ export default function OrdersPage({ params }: Props) {
 
         {/* ORDEN DE COMPRA */}
         <div className="checkout col-span-1 px-4 py-8 rounded bg-white shadow-xl h-fit">
+        <h3 className="font-semibold text-2xl">Dirección de entrega</h3>
+        <h4 className="text-xl">
+          {order?.OrderAddress?.firstName} {order?.OrderAddress?.lastName}
+        </h4>
+        <p>
+          {order?.OrderAddress?.postalCode} <br />
+          {order?.OrderAddress?.address} <br />
+          {order?.OrderAddress?.address2 ? `${order?.OrderAddress?.address2} - ` : ""}
+          {order?.OrderAddress?.countryId} <br />
+          {order?.OrderAddress?.city} <br />
+          {order?.OrderAddress?.phone}
+        </p>
 
-          <h3 className="font-semibold text-2xl">Dirección de entrega</h3>
-          <h4 className="text-xl">Oscar Curi</h4>
-          <p>
-            Av.Siempre viva 123 <br />
-            Col. centro <br />
-            Alcaldia Cuachectuanec <br />
-            Ciudad de Mexico <br />
-            CP 123123
-          </p>
+        <hr className="my-2" />
 
-          <br />
-
-          <h3 className="font-semibold text-2xl">Resumen de orden</h3>
-          <div className="flex justify-between">
-            <span>Nro. Productos</span>
-            <span>3 articulos</span>
+        <h3 className="font-semibold text-2xl">Resumen de orden</h3>
+        <div className="flex justify-between">
+          <span>Nro. Productos</span>
+          <span>
+            {order?.itemsInOrder === 1 ? "1 articulo" : `${order?.itemsInOrder} articulos`}{" "}
+          </span>
+        </div>
+        <div className="flex justify-between">
+          <span>Subtotal</span>
+          <span> {currencyFormat(order!.subTotal)}</span>
+        </div>
+        <div className="flex justify-between">
+          <span>Impuestos (15%)</span>
+          <span> {currencyFormat(order!.subTotal * 0.15)}</span>
+        </div>
+        {/* TOTAL */}
+        <div className="total">
+          <div className="flex justify-between font-bold text-xl">
+            <span>Total:</span>
+            <span> {currencyFormat(order!.total)}</span>
           </div>
-          <div className="flex justify-between">
-            <span>Subtotal</span>
-            <span>$ 0.00</span>
-          </div>
-          <div className="flex justify-between">
-            <span>Impuestos (15%)</span>
-            <span>$ 0.00</span>
-          </div>
-          {/* TOTAL */}
-          <div className="total">
-            <div className="flex justify-between font-bold text-xl">
-              <span>Total:</span>
-              <span>$ 0.00</span>
-            </div>            
+        </div>
 
             {/* CHECK SI ESTA O NO PAGADO */}
             <div
               className={clsx(
                 "px-4 py-2 rounded-md text-slate-50 flex gap-4 items-center font-bold",
                 {
-                  "bg-red-500": false,
-                  "bg-green-800": true,
+                  "bg-red-500": !order!.isPaid,
+                "bg-green-800": order!.isPaid,
                 }
               )}
             >
               <IoCardOutline size={30} />
-              Pagado
+              { order!.isPaid ? 'Pagado' : 'No pagado' }
             </div>
           </div>
         </div>
-      </div>
-    </div>
+      </div>    
   );
 }

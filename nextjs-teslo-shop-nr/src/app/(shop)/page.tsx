@@ -24,14 +24,15 @@ export default async function Home({ searchParams }: Props) {
   // console.log(products)
   // console.log(searchParams)
 
-  if(products.length === 0) redirect("/")
+  // if(products.length === 0) redirect("/")
+  if(products.length === 0) redirect("/auth/login")
 
   console.log(currentPage);
   console.log(totalPages);
   
 
   return (
-    <main>
+    <main className="px-5">
       <Title
         title="Tienda"
         subtitle="Todos los productos"

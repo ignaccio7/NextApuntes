@@ -149,7 +149,83 @@ Y ahora finalmente ejecutamos
 Creamos una nueva carpeta dentro de *src* de nombre *config* y creamos un archivo *fonts.ts*.
 
 
+## Para la autenticacion
 
+Usaremos AuthJS del siguiente enlace [ir](https://authjs.dev/getting-started/installation?framework=next.js)
+
+```bash
+    npm install next-auth@beta
+```
+Para generar un token o hash de autenticacion usaremos
+
+```bash
+    npx auth secret
+```
+Y nos creara la variable de entorno *AUTH_SECRET="6asdads"* en el archivo *.env.local* en nuestro proyecto
+
+Ahora crearemos el archivo *auth.config.ts* adentro de la carpeta *src* de nuestro proyecto.
+
+Adicional a la documentacion de *authjs* haremos uso del [tutorial que nos brindo nextjs](https://nextjs.org/learn/dashboard-app/adding-authentication)
+
+Y modificaremos el archivo que creamos anteriormente.
+
+### Para facilitar las validaciones haremos uso de ZOD
+
+```bash
+    npm i zod
+```
+
+Haremos las configuraciones necesarias en los archivos dentro **src/actions/auth/login** y **src/app/auth/login** 
+
+Y crearemos nuestro esquema para la base de datos añadiendo uno nuevo para el User
+
+```prisma
+model User {
+  id            String    @id @default(uuid())
+  name          String
+  email         String    @unique
+  emailVerified DateTime?
+  password      String
+  role          String    @default("user")
+  image         String?
+}
+```
+
+Y hacemos la migracion respectiva
+```bash
+    npx prisma migrate dev --name user-role
+```
+
+Y ya modificamos nuestro seed para probar nuestra la informacion en nuestra aplicacion.
+
+Adicionalmente para hashear las contraseñas haremos uso de bcryptjs asi:
+```bash
+    npm i bcryptjs
+    npm i --save-dev @types/bcryptjs
+```
+
+
+
+
+
+
+
+
+
+
+
+```bash
+```
+```bash
+```
+```bash
+```
+```bash
+```
+```bash
+```
+```bash
+```
 
 
 

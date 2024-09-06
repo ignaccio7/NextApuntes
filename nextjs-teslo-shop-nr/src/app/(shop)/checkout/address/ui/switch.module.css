@@ -1,0 +1,11 @@
+/* CHECKBOX TOGGLE SWITCH */
+/* @apply rules for documentation, these do not work as inline style */
+.toggleCheckbox:checked {
+  @apply: right-0 border-green-400;
+  right: 0;
+  border-color: #3553ab;
+}
+.toggleCheckbox:checked + .toggleLabel {
+  @apply: bg-green-400;
+  background-color: #1e7eae;
+}

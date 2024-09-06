@@ -13,7 +13,6 @@ export const NewTodo = () => {
 
   const [ description, setDescription ] = useState('')
 
-
   const onSubmit = async (event: FormEvent) => {
     event.preventDefault()
 
