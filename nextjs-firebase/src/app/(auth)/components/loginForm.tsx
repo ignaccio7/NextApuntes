@@ -10,6 +10,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signIn } from "@/lib/firebase";
 import { useState } from "react";
+import { toast } from "sonner";
 
 export default function LoginForm() {
 
@@ -37,10 +38,11 @@ export default function LoginForm() {
     try {
 
       const response = await signIn(user.email, user.password)
-      console.log(response);
-      
-    } catch (error) {
-      console.log(error);
+      // console.log(response);      
+    } catch (error: any) {
+      // console.log(error);
+      const errorMessage = error?.message || "Error al ingresar"
+      toast.error(errorMessage)
       
     }finally {
       setIsLoding(false)
@@ -95,7 +97,7 @@ export default function LoginForm() {
       }
     </Button>
     <div className="group-form text-sm text-muted-foreground">
-      No tienes cuenta?  
+      No tienes cuenta?  &nbsp;
       <Link
         href={"sign-up"}
       >
