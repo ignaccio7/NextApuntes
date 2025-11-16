@@ -222,10 +222,16 @@ export const updateUser = async (user:{ displayName?: string | null; photoURL?: 
 
 // Database Functions <===============================
 
-// Set a document  in a collection
+// Set a document in a collection
 export const setDocument = (path: string, data: any) => {
   data.createdAt = serverTimestamp()
   return setDoc(doc(db, path), data)
+}
+
+// Get a document from a collection
+export const getDocument = async (path: string) => {
+  const document = await getDoc(doc(db, path))
+  return document.data()
 }
 
 ```
@@ -381,7 +387,7 @@ Para las notificaciones usaremos [sonner](https://sonner.emilkowal.ski/)
 pnpm install sonner
 ```
 
-
+Fijarse el archivo `firebase.ts` para ver las funciones que usamos para comunicarnos con firebase ya que lo demas es puro Nextjs.
 
 
 

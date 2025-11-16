@@ -1,17 +1,19 @@
-"use client"
-import { Button } from "@/components/ui/button";
-import { signOut } from "@/lib/firebase";
+// import { Button } from "@/components/ui/button";
+// import { signOut } from "@/lib/firebase";
+import TopMenu from "@/app/dashboard/components/top-menu"
+
+export const metadata = {
+  title: "Dashboard",
+  description: 'Gestiona los productos'
+}
 
 export default function Dashboard () {
   return (
     <>
-      <header>
-        <nav>
-          <Button
+          {/* <Button
             onClick={() => signOut()}
-          >Salir</Button>
-        </nav>
-      </header>
+          >Salir</Button> */}
+      <TopMenu />
       <h1>Dashboard</h1>
     </>
   )

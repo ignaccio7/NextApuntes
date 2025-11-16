@@ -2,7 +2,8 @@
 import { initializeApp } from "firebase/app";
 import { createUserWithEmailAndPassword, getAuth, sendPasswordResetEmail, updateProfile } from "firebase/auth";
 import { signInWithEmailAndPassword } from "firebase/auth/web-extension";
-import { doc, getDoc, getFirestore, serverTimestamp, setDoc } from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, getDoc, getDocs, getFirestore, query, query, serverTimestamp, setDoc, updateDoc } from "firebase/firestore";
+import { getStorage, uploadString, getDownloadURL, ref } from "firebase/storage";
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -22,10 +23,12 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 export default app
-
+// Para la autenticacion
 export const auth = getAuth(app)
-
-const db = getFirestore(app)
+// Para la base de datos
+export const db = getFirestore(app)
+// Para subir imagenes
+export const storage = getStorage(app)
 
 // Auth functions <===============================
 
@@ -68,3 +71,59 @@ export const getDocument = async (path: string) => {
   const document = await getDoc(doc(db, path))
   return document.data()
 }
+
+// Update a document from a collection
+export const updateDocument = async (path: string, data: any) => {
+  return updateDoc(doc(db, path), data)
+}
+
+// Add a document in a collection || Esto es diferente al set ya que este crea el uid al momento de crear el documento
+export const addDocument = (path: string, data: any) => {
+  data.createdAt = serverTimestamp()
+  return addDoc(collection(db, path), data)
+}
+
+// Delete a document from a collection
+export const deleteDocument = async (path: string) => {
+  return deleteDoc(doc(db, path))
+}
+
+// Storage Functions <===============================
+
+//Upload image to storage - Sube una imagen en base 64 y obtiene la url
+/**
+ * path seria la ruta donde se guardara la imagen y base64 el formato en el cual subiremos la imagen
+ * uploadString nos permite subir una imagen en formato base64
+ * getDownloadURL nos permite obtener la url de la imagen subida
+ * ref nos permite obtener la referencia a la imagen subida
+ */
+export const uploadImage = async (path: string, base64: string | any) => {
+  return uploadString(ref(storage, path), base64, 'data_url')
+    .then(() => {
+      return getDownloadURL(ref(storage, path))
+    })
+}
+
+// Save a file to user document with updateDocument
+
+// Para obtener los productos de un determinado usuario
+// nombre de la coleccion de la que obtendremos los documentos
+// query para filtrar los documentos
+export const getCollection = async (collectionName: string, queryArray?: any) => {
+  const ref = collection(db, collectionName)
+  const q = queryArray ? query(ref, ...queryArray) : query(ref)
+  return (await getDocs((q))).docs.map((doc) => ({ id: doc.id, ...doc.data() }))
+}
+
+/**
+ * Y para utilizarala en nuestros componentes de ls siguiente manera
+ */
+// const getItems = async () => {
+//   const path = `users/${user.id}/products`
+//   try {
+//     const res = await getCollection(path)
+//     console.log(res)    
+//   } catch (error) {
+//     ...
+//   }
+// }
